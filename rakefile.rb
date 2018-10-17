@@ -3,9 +3,13 @@ def latest_gem
 end   
 task :default do
 	puts `gem build a.gemspec`
-	puts `sudo gem i --local #{latest_gem}`
+	puts `gem i --local #{latest_gem}`
     puts  `ruby -e '' -ra`
 	puts `a gem mytest`
+end
+
+task :install do
+	puts `gem i --local #{latest_gem}`
 end
 
 task :push do

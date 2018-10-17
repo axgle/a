@@ -4,7 +4,7 @@
  def target
 
   unless $*[0]
-    puts <<-EOT
+    puts <<-EOT   
 example:
     a gem mytest
 will create new gem project named mytest directory
