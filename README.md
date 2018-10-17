@@ -7,7 +7,7 @@ will create a `a` command
 ## example: use `a` create a gem 
     sudo a gem mytest
     cd mytest
-    sudo rake
+    sudo rake run
 for starter,  you need just type `a gem` 
 
 
