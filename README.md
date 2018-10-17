@@ -1,14 +1,14 @@
 # a
 a gem generator etc.
 
-## install
+## install:
     gem install a
 will create a `a` command
-## use `a` create a gem example
+## example: use `a` create a gem 
     a gem mytest
 
 
-## license
+## license:
 MIT
-## versions
+## versions:
 2018-10-17 init

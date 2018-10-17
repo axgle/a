@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
     s.email = 'degcat@126.com'
     s.homepage = 'https://github.com/axgle/a'
 
-    s.files =  ["a.gemspec","rakefile.rb","lib/a.rb"]
+    s.files =  ["README.md","a.gemspec","rakefile.rb","lib/a.rb"]
     s.files += Dir["lib/commands/*.rb"]
     s.executables << "a"
 end
