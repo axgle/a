@@ -25,11 +25,24 @@ task :default do
     puts `gem build #{dir}.gemspec`
     if $?.success?
         puts "\\nyou can install it with:"
-        puts "gem install --local \#{latest_gem}\\n"
-        puts "run your app with:\\n#{dir}\\n"
+        puts "rake install\\n"
+        puts "then run your app with:\\n#{dir}\\n"
             
     end    
 end
+
+task :install do
+	puts `gem install --local \#{latest_gem}`
+end
+
+task :push do
+    puts "pusing \#{latest_gem}..."
+    exec "gem push \#{latest_gem}"
+    if $?.success?
+        puts "https://rubygems.org/gems/#{dir}"
+    end
+end    
+
 eot
                 gemspec = <<-eot
 Gem::Specification.new do |s|
