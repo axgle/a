@@ -37,7 +37,7 @@ end
 
 task :push do
     puts "pusing \#{latest_gem}..."
-    exec "gem push \#{latest_gem}"
+    puts `gem push \#{latest_gem}`
     if $?.success?
         puts "https://rubygems.org/gems/#{dir}"
     end
@@ -56,7 +56,7 @@ Gem::Specification.new do |s|
     s.homepage = 'https://rubygems.org/gems/a'
 
     s.files =  Dir["lib/*.rb"]
-    s.executables = ["#{dir}"]
+    s.executables << "#{dir}" 
 end
                 eot
                 IO.write "#{dir}.gemspec",gemspec
@@ -68,6 +68,8 @@ end
 puts "hello world!"
 eot
                 IO.write "bin/#{dir}",binfile
+
+                FileUtils.chmod "u=wrx","bin/#{dir}" rescue nil
  
 
 
