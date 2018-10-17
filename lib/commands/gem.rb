@@ -30,6 +30,13 @@ task :default do
             
     end    
 end
+task :run do
+    puts `gem build #{dir}.gemspec`
+    puts `gem install --local \#{latest_gem}`
+    puts "===output==="
+    puts `#{dir}`
+    
+end
 
 task :install do
 	puts `gem install --local \#{latest_gem}`
