@@ -1,21 +1,20 @@
 module A
     class Gem
         class << self
-            def index(config)
+
+            def make_dirs(config)
                 dir = config[:dir]
-                target = config[:target]
+               
+               Dir.mkdir dir rescue nil
 
-              #  puts Dir.pwd
+               Dir.chdir dir
+               Dir.mkdir 'lib' rescue nil
+               Dir.mkdir 'bin' rescue nil
+            end
 
-               # puts target
-
-                Dir.mkdir dir rescue nil
-
-                Dir.chdir dir
-                Dir.mkdir 'lib' rescue nil
-                Dir.mkdir 'bin' rescue nil
-
-
+            def make_rakefile(config)
+                dir = config[:dir]
+               
                 rakefile = <<-eot
 def latest_gem
     Dir["*.gem"].sort.last
@@ -39,7 +38,7 @@ task :run do
 end
 
 task :install do
-	puts `gem install --local \#{latest_gem}`
+    puts `gem install --local \#{latest_gem}`
 end
 
 task :push do
@@ -53,7 +52,13 @@ end
 task :i=>:install
 
 eot
+                IO.write "rakefile.rb",rakefile
+            end
+
+            def make_specfile(config)
+                dir = config[:dir]
                 gemspec = <<-eot
+
 Gem::Specification.new do |s|
     s.name = "#{dir}"
     s.version = "0.0.1"
@@ -67,9 +72,19 @@ Gem::Specification.new do |s|
     s.files =  Dir["lib/*.rb"]
     s.executables << "#{dir}" 
 end
-                eot
-                IO.write "#{dir}.gemspec",gemspec
-                IO.write "rakefile.rb",rakefile
+
+eot
+              IO.write "#{dir}.gemspec",gemspec
+            end
+            def index(config)
+                dir = config[:dir]
+                target = config[:target]
+
+                self.make_dirs(config)
+
+                self.make_rakefile(config)
+                self.make_specfile(config)
+        
                 IO.write "lib/#{dir}.rb",''
 
                 binfile=<<-eot
