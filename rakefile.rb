@@ -17,6 +17,8 @@ task :push do
     end
 end    
 
+task :i=>:install
+
 
 def latest_gem
     Dir["*.gem"].sort.last

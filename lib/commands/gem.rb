@@ -43,6 +43,8 @@ task :push do
     end
 end    
 
+task :i=>:install
+
 eot
                 gemspec = <<-eot
 Gem::Specification.new do |s|
