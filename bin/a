@@ -35,9 +35,9 @@ EOT
 def main
 
  begin 
- require 'pathname'
- require(File.join(File.dirname(__FILE__),'..','lib','commands',target.downcase)) 
- 
+ #require 'pathname'
+ #require(File.join(File.dirname(__FILE__),'..','lib','commands',target.downcase)) 
+ require File.join('commands',target.downcase)
    rescue LoadError 
 
    puts "the #{target} not exist"
