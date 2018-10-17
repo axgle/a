@@ -1,8 +1,3 @@
-@gem_name = 'a'
-
-def latest_gem
-    Dir["*.gem"].sort.last
-end   
 task :default do
 	puts `gem build a.gemspec`
 	puts `gem install --local #{latest_gem}`
@@ -21,3 +16,8 @@ task :push do
         puts "https://rubygems.org/gems/a"
     end
 end    
+
+
+def latest_gem
+    Dir["*.gem"].sort.last
+end

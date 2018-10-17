@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
     s.name = "a"
-    s.version = "0.2.5"
+    s.version = "0.2.7"
     s.summary = "a gem generator etc."
     s.authors = ['author']
 
