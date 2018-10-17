@@ -5,7 +5,11 @@ a gem generator etc.
     gem install a
 will create a `a` command
 ## example: use `a` create a gem 
-    a gem mytest
+    sudo a gem mytest
+    cd mytest
+    sudo rake
+for starter,  you need just type `a gem` 
+
 
 
 ## license:
