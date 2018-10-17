@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
     s.name = "a"
-    s.version = "0.2.7"
+    s.version = "0.2.8"
     s.summary = "a gem generator etc."
     s.authors = ['author']
 
@@ -11,4 +11,8 @@ Gem::Specification.new do |s|
     s.files =  ["README.md","a.gemspec","rakefile.rb","lib/a.rb"]
     s.files += Dir["lib/commands/*.rb"]
     s.executables << "a"
+
+    #s.require_paths = ['lib']
+    s.required_ruby_version = '>= 2.0.0'
+
 end
