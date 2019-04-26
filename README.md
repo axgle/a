@@ -8,7 +8,7 @@ will create a `a` command
     sudo a gem mytest
     cd mytest
     sudo rake run
-for starter,  you need just type `a gem` 
+for starter, you need to just type `a gem` 
 
 
 
