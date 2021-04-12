@@ -1,55 +1,46 @@
 #!/usr/bin/env ruby
- 
- #ex: gem
- def target
 
-  unless $*[0]
-    puts <<-EOT   
-example:
-    a gem mytest
-will create new gem project named mytest directory
+# ex: gem
+def target
+  unless $ARGV[0]
+    puts <<~EOT
+      example:
+          a gem mytest
+      will create new gem project named mytest directory
 
-EOT
+    EOT
     exit 1
- end
-    t = String.new $*[0]
-    t.capitalize!
-    t
- end
-
-#ex: mytest
-  def dir
-
-    unless $*[1]
-     puts "must have mtarget_dir\nfor example:\n a gem mytest "
-     exit 2
-    end
-
-    t = String.new $*[1]
-
-    # t.capitalize!
-    t 
- end
-
-
-def main
-
- begin 
- #require 'pathname'
- #require(File.join(File.dirname(__FILE__),'..','lib','commands',target.downcase)) 
- require File.join('commands',target.downcase)
-   rescue LoadError 
-
-   puts "the #{target} not exist"
- exit 4
-
-   end
- 
-target_class = Object.const_get('A::'+target)
- 
-
-target_class.index(dir: dir,target: target)
-
+  end
+  t = String.new $ARGV[0]
+  t.capitalize!
+  t
 end
 
-main()
+# ex: mytest
+def dir
+  unless $ARGV[1]
+    puts "must have mtarget_dir\nfor example:\n a gem mytest "
+    exit 2
+  end
+
+  String.new $ARGV[1]
+
+  # t.capitalize!
+end
+
+def main
+  begin
+    # require 'pathname'
+    # require(File.join(File.dirname(__FILE__),'..','lib','commands',target.downcase))
+    require File.join('commands', target.downcase)
+  rescue LoadError
+    puts "the #{target} not exist"
+    exit 4
+  end
+
+  target_class = Object.const_get("A::#{target}")
+
+  target_class.index(dir: dir, target: target)
+end
+
+main
