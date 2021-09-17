@@ -3,8 +3,15 @@ require 'fileutils'
 module A
   class Gem
 
-    BINFILE = %[#!/usr/bin/env ruby
-puts 'Hello, world!'
+    BINFILE = %q[#!/usr/bin/env ruby
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename(__FILE__)}"
+
+  opts.on('-V', '--verbose', 'Print more info') { |v| options[:verbose] = v }
+end.parse!
 ]
 
 RAKEFILE = %[desc 'Used for quick help on terminal'
