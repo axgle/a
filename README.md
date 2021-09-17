@@ -1,9 +1,13 @@
 # a
 Use commands to generator project trees(currently only generates Ruby gems.)
 
+## Build:
+```ruby
+    rake build
+```
 ## install:
 ```ruby
-    gem install a
+    rake install
 ```
 ## Examples:
 *Generate a Ruby gem project.*
