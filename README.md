@@ -1,18 +1,15 @@
 # a
-a gem generator etc.
+Use commands to generator project trees(currently only generates Ruby gems.)
 
 ## install:
+```ruby
     gem install a
-will create a `a` command
-## example: use `a` create a gem 
-    sudo a gem mytest
-    cd mytest
-    sudo rake run
-for starter,  you need just type `a gem` 
-
-
-
+```
+## Examples:
+*Generate a Ruby gem project.*
+```ruby
+    # Generate a gem
+    a gem my_gem
+``` 
 ## license:
 MIT
-## versions:
-2018-10-17 init
