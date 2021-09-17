@@ -28,7 +28,7 @@ GEMSPEC = %[Gem::Specification.new do |s|
 
   s.license = 'MIT'
   s.email = 'degcat@126.com'
-  s.homepage = 'https://rubygems.org/gems
+  s.homepage = 'https://rubygems.org/gems/a'
 
   s.files = Dir["lib/**/*.rb"]
   s.executables << 'a'
