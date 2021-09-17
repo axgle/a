@@ -37,14 +37,14 @@ end
       make_specfile(config)
       File.write("#{dir}/lib/#{dir}.rb", '')
       File.write("#{dir}/bin/#{dir}", BINFILE)
-      FileUtils.chmod(0755, "#{dir}/bin/#{dir}") rescue nil
+      FileUtils.chmod(0755, "#{dir}/bin/#{dir}", verbose: config[:verbose]) rescue nil
     end
 
     def make_dirs(config)
       dir = config[:dir]
 
       paths = ["#{dir}/lib", "#{dir}/bin"]
-      paths.each { |p| FileUtils.mkdir_p(p) }
+      paths.each { |p| FileUtils.mkdir_p(p, verbose: config[:verbose]) }
     end
 
     def make_rakefile(config)
