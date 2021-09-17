@@ -1,3 +1,4 @@
+# Generates a Ruby gems project tree.
 require 'fileutils'
 
 module A

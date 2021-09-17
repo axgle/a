@@ -4,12 +4,14 @@ require 'optparse'
 
 options = {}
 OptionParser.new do |opts|
-  opts.banner = "Usage: #{File.basename(__FILE__)} [-V] COMMAND DIR"
+  opts.banner = "Usage: #{File.basename(__FILE__)} [-V|l] COMMAND DIR"
 
   opts.on('-V', '--verbose', 'Print more info') { |v| options[:verbose] = v }
+  opts.on('-l', '--list', 'Get a list of COMMAND') { |v| options[:list] = v }
 end.parse!
 
 VERBOSE = options[:verbose]
+LIST = options[:list]
 
 EXAMPLE_STR = %[example:
 a gem mytest
@@ -44,12 +46,24 @@ def list_targets(targets_path)
   entries.map! { |e| File.basename(e, '.rb') }
 end
 
+# ex: gem # Generates a Ruby gems project tree.
+def print_targets(targets_path)
+    list_targets(targets_path).each { |e| puts(e + " #{File.read("#{targets_path}/#{e}.rb").split("\n").first}") }
+end
+
 def main
+  targets_dir = 'lib/commands'
+
+  if LIST
+    print_targets(targets_dir)
+    exit
+  end
+
   begin 
-    require_relative File.join('../lib/commands', target.downcase)
+    require_relative File.join("../#{targets_dir}", target.downcase)
   rescue LoadError
     puts(%[The target "#{target}" does not exist!\n] + TARGET_ERROR_STR)
-    list_targets('lib/commands').each { |e| puts(e) }
+    print_targets(targets_dir)
     exit(4)
   end
   A::Gem.new(dir: dir, target: target, verbose: VERBOSE)
