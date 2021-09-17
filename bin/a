@@ -1,55 +1,47 @@
 #!/usr/bin/env ruby
- 
- #ex: gem
- def target
 
-  unless $*[0]
-    puts <<-EOT   
-example:
-    a gem mytest
-will create new gem project named mytest directory
+EXAMPLE_STR = %[example:
+a gem mytest
+will create new gem project named mytest directory.]
 
-EOT
-    exit 1
- end
-    t = String.new $*[0]
-    t.capitalize!
-    t
- end
+DIR_ERROR_STR = %[Must have a target dir
+for example: a gem mytest]
 
-#ex: mytest
-  def dir
+TARGET_ERROR_STR = "Here is a list of target you can use:\n"
 
-    unless $*[1]
-     puts "must have mtarget_dir\nfor example:\n a gem mytest "
-     exit 2
-    end
-
-    t = String.new $*[1]
-
-    # t.capitalize!
-    t 
- end
-
-
-def main
-
- begin 
- #require 'pathname'
- #require(File.join(File.dirname(__FILE__),'..','lib','commands',target.downcase)) 
- require File.join('commands',target.downcase)
-   rescue LoadError 
-
-   puts "the #{target} not exist"
- exit 4
-
-   end
- 
-target_class = Object.const_get('A::'+target)
- 
-
-target_class.index(dir: dir,target: target)
-
+#ex: gem
+def target
+  unless ARGV.first
+    puts(EXAMPLE_STR)
+    exit(1)
+  end
+  ARGV.first.capitalize
 end
 
-main()
+#ex: mytest
+def dir
+  dir = ARGV.last
+  unless dir
+    puts(DIR_ERROR_STR)
+    exit(2)
+  end
+  dir
+end
+
+def list_targets(targets_path)
+  entries = Dir.entries(targets_path).keep_if { |e| e.include?('.rb') }
+  entries.map! { |e| File.basename(e, '.rb') }
+end
+
+def main
+  begin 
+    require_relative File.join('../lib/commands', target.downcase)
+  rescue LoadError
+    puts(%[The target "#{target}" does not exist!\n] + TARGET_ERROR_STR)
+    list_targets('lib/commands').each { |e| puts(e) }
+    exit(4)
+  end
+  A::Gem.new(dir: dir, target: target)
+end
+
+main
