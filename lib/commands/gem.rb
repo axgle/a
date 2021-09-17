@@ -3,8 +3,15 @@ require 'fileutils'
 module A
   class Gem
 
-    BINFILE = %[#!/usr/bin/env ruby
-puts 'Hello, world!'
+    BINFILE = %q[#!/usr/bin/env ruby
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename(__FILE__)}"
+
+  opts.on('-V', '--verbose', 'Print more info') { |v| options[:verbose] = v }
+end.parse!
 ]
 
 RAKEFILE = %[desc 'Used for quick help on terminal'
@@ -37,14 +44,14 @@ end
       make_specfile(config)
       File.write("#{dir}/lib/#{dir}.rb", '')
       File.write("#{dir}/bin/#{dir}", BINFILE)
-      FileUtils.chmod(0755, "#{dir}/bin/#{dir}") rescue nil
+      FileUtils.chmod(0755, "#{dir}/bin/#{dir}", verbose: config[:verbose]) rescue nil
     end
 
     def make_dirs(config)
       dir = config[:dir]
 
       paths = ["#{dir}/lib", "#{dir}/bin"]
-      paths.each { |p| FileUtils.mkdir_p(p) }
+      paths.each { |p| FileUtils.mkdir_p(p, verbose: config[:verbose]) }
     end
 
     def make_rakefile(config)

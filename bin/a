@@ -1,5 +1,16 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename(__FILE__)} [-V] COMMAND DIR"
+
+  opts.on('-V', '--verbose', 'Print more info') { |v| options[:verbose] = v }
+end.parse!
+
+VERBOSE = options[:verbose]
+
 EXAMPLE_STR = %[example:
 a gem mytest
 will create new gem project named mytest directory.]
@@ -41,7 +52,7 @@ def main
     list_targets('lib/commands').each { |e| puts(e) }
     exit(4)
   end
-  A::Gem.new(dir: dir, target: target)
+  A::Gem.new(dir: dir, target: target, verbose: VERBOSE)
 end
 
 main
