@@ -7,10 +7,14 @@ OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename(__FILE__)} [-V|l] COMMAND DIR"
 
   opts.on('-V', '--verbose', 'Print more info') { |v| options[:verbose] = v }
+
+  opts.on('-v', '--version', 'Print version info') { |v| options[:version] = v }
+
   opts.on('-l', '--list', 'Get a list of COMMAND') { |v| options[:list] = v }
 end.parse!
 
 VERBOSE = options[:verbose]
+VERSION = options[:version]
 LIST = options[:list]
 
 EXAMPLE_STR = %[example:
@@ -59,6 +63,12 @@ def main
     exit
   end
 
+  if VERSION
+    require_relative '../lib/version'
+    $stderr.puts(A::VERSION)
+    exit
+  end
+
   begin 
     require_relative File.join("../#{targets_dir}", target.downcase)
   rescue LoadError
@@ -66,6 +76,7 @@ def main
     print_targets(targets_dir)
     exit(4)
   end
+
   A::Gem.new(dir: dir, target: target, verbose: VERBOSE)
 end
 
