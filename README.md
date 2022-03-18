@@ -1,5 +1,5 @@
 # a
-Use commands to generator project trees(currently only generates Ruby gems.)
+Use commands to generate project trees(currently only generates Ruby gems.)
 
 ## Build:
 ```ruby
