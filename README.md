@@ -25,6 +25,19 @@ generate project trees for many possible different kinds of projects.
 ```ruby
     a --list
 ```
+The description of the command is always a comment at the top of the file.
+```ruby
+# This description will appear when a --list is used.
+
+module A
+    class Foo
+    end
+end
+
+a --list
+foo # This description will appear when a --list is used.
+bar # This description will also appear when a --list is used.
+```
 
 ## license:
 MIT

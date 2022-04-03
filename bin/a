@@ -74,7 +74,9 @@ def main(options)
     exit(4)
   end
 
-  A::Gem.new(dir: dir, target: target, verbose: options[:verbose])
+  # Calls what ever command in the target.
+  # Example: A::Gem#new is called when "a gem my_dir" is called.
+  eval "A::#{target.capitalize}.new(dir: dir, target: target, verbose: options[:verbose])"
 end
 
 main(options)
