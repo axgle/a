@@ -13,10 +13,6 @@ OptionParser.new do |opts|
   opts.on('-l', '--list', 'Get a list of COMMAND') { |v| options[:list] = v }
 end.parse!
 
-VERBOSE = options[:verbose]
-VERSION = options[:version]
-LIST = options[:list]
-
 EXAMPLE_STR = %[example:
 a gem mytest
 will create new gem project named mytest directory.]
@@ -55,29 +51,29 @@ def print_targets(targets_path)
     list_targets(targets_path).each { |e| puts(e + " #{File.read("#{targets_path}/#{e}.rb").split("\n").first}") }
 end
 
-def main
-  targets_dir = 'lib/commands'
+def main(options)
+  targets_dir = 'commands'
 
-  if LIST
+  if options[:list]
     print_targets(targets_dir)
     exit
   end
 
-  if VERSION
+  if options[:version]
     require_relative '../lib/version'
     $stderr.puts(A::VERSION)
     exit
   end
 
   begin 
-    require_relative File.join("../#{targets_dir}", target.downcase)
+    require_relative File.join("#{Dir.home}/.config/a/#{targets_dir}", target.downcase)
   rescue LoadError
     puts(%[The target "#{target}" does not exist!\n] + TARGET_ERROR_STR)
     print_targets(targets_dir)
     exit(4)
   end
 
-  A::Gem.new(dir: dir, target: target, verbose: VERBOSE)
+  A::Gem.new(dir: dir, target: target, verbose: options[:verbose])
 end
 
-main
+main(options)
