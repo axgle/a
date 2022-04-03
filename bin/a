@@ -53,9 +53,10 @@ end
 
 def main(options)
   targets_dir = 'commands'
+  targets_path = File.join("#{Dir.home}/.config/a/#{targets_dir}/")
 
   if options[:list]
-    print_targets(targets_dir)
+    print_targets(targets_path)
     exit
   end
 
@@ -66,7 +67,7 @@ def main(options)
   end
 
   begin 
-    require_relative File.join("#{Dir.home}/.config/a/#{targets_dir}", target.downcase)
+    require_relative targets_path + target.downcase
   rescue LoadError
     puts(%[The target "#{target}" does not exist!\n] + TARGET_ERROR_STR)
     print_targets(targets_dir)
