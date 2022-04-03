@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
     s.email = 'gehirnmav7@protonmail.com'
     s.homepage = 'https://github.com/neet93/a'
 
-    s.files =  %w(README.md a.gemspec Rakefile lib/a.rb)
-    s.files += Dir['lib/commands/*.rb']
+    s.files =  %w(README.md a.gemspec Rakefile)
+    #s.files += Dir['lib/commands/*.rb']
     s.executables << 'a'
 
     #s.require_paths << 'lib' 
