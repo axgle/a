@@ -1,11 +1,11 @@
-commit 41ebdcc5454fdebaac39a3ac632e720e6660ef22
-Author: neet93 <gehirnmav7@protonmail.com>
-Date:   Sat Apr 9 16:56:40 2022 -0400
+commit f28734391b57a20a4fe9a5ecced71cb621bf9fce
+Author: Nate River <65733513+neet93@users.noreply.github.com>
+Date:   Sat Apr 9 17:32:18 2022 -0400
 
-    bump to version 2.0.0
+    Bump to version 2.0.1
 
-commit 2115d2c8a118c8b3df61693f059bc9908d8fd8e5
-Author: neet93 <gehirnmav7@protonmail.com>
-Date:   Sat Apr 9 16:55:54 2022 -0400
+commit fab41cbd276735eee340e2a900ef95b79f7bff40
+Author: Nate River <65733513+neet93@users.noreply.github.com>
+Date:   Sat Apr 9 17:31:47 2022 -0400
 
-    added command dir generation
+    Update README.md
