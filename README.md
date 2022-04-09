@@ -25,6 +25,10 @@ generate project trees for many possible different kinds of projects.
 ```ruby
     a --list
 ```
+
+Commands are just **.rb** files kept in the ***$HOME/.config/a/commands***.
+For an example check the **examples** directory.
+
 The description of the command is always a comment at the top of the file.
 ```ruby
 # This description will appear when a --list is used.
@@ -38,6 +42,8 @@ a --list
 foo # This description will appear when a --list is used.
 bar # This description will also appear when a --list is used.
 ```
+
+
 
 ## license:
 MIT
