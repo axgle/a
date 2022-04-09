@@ -1,11 +1,11 @@
-commit f28734391b57a20a4fe9a5ecced71cb621bf9fce
-Author: Nate River <65733513+neet93@users.noreply.github.com>
-Date:   Sat Apr 9 17:32:18 2022 -0400
+commit 915ea3d83dd61510458ecb1805c6e82180f0ec03
+Author: neet93 <gehirnmav7@protonmail.com>
+Date:   Sat Apr 9 18:01:25 2022 -0400
 
-    Bump to version 2.0.1
+    bump to version 2.0.2
 
-commit fab41cbd276735eee340e2a900ef95b79f7bff40
-Author: Nate River <65733513+neet93@users.noreply.github.com>
-Date:   Sat Apr 9 17:31:47 2022 -0400
+commit 30846363e513bd0cf999bee44d5959560bfffc7a
+Author: neet93 <gehirnmav7@protonmail.com>
+Date:   Sat Apr 9 17:56:13 2022 -0400
 
-    Update README.md
+    fixed version path find
