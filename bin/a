@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
+require 'fileutils'
 
 options = {}
 OptionParser.new do |opts|
@@ -41,14 +42,17 @@ def dir
   dir
 end
 
-def list_targets(targets_path)
+def list_targets(targets_path, verbose)
+  # Create the targets_path directory if it doesn't exist!
+  FileUtils.mkdir_p(targets_path, verbose: verbose) unless Dir.exist?(targets_path)
+
   entries = Dir.entries(targets_path).keep_if { |e| e.include?('.rb') }
   entries.map! { |e| File.basename(e, '.rb') }
 end
 
 # ex: gem # Generates a Ruby gems project tree.
-def print_targets(targets_path)
-    list_targets(targets_path).each { |e| puts(e + " #{File.read("#{targets_path}/#{e}.rb").split("\n").first}") }
+def print_targets(targets_path, verbose)
+    list_targets(targets_path, verbose).each { |e| puts(e + " #{File.read("#{targets_path}/#{e}.rb").split("\n").first}") }
 end
 
 def main(options)
@@ -56,7 +60,7 @@ def main(options)
   targets_path = File.join("#{Dir.home}/.config/a/#{targets_dir}/")
 
   if options[:list]
-    print_targets(targets_path)
+    print_targets(targets_path, options[:verbose])
     exit
   end
 
