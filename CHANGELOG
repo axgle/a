@@ -1,0 +1,11 @@
+commit 41ebdcc5454fdebaac39a3ac632e720e6660ef22
+Author: neet93 <gehirnmav7@protonmail.com>
+Date:   Sat Apr 9 16:56:40 2022 -0400
+
+    bump to version 2.0.0
+
+commit 2115d2c8a118c8b3df61693f059bc9908d8fd8e5
+Author: neet93 <gehirnmav7@protonmail.com>
+Date:   Sat Apr 9 16:55:54 2022 -0400
+
+    added command dir generation
