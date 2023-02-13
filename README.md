@@ -1,5 +1,5 @@
 # a
-Use commands to generate project trees(currently only generates Ruby gems.)
+Using commands you create you can generate project trees.
 
 ## Build & install:
 ```ruby
@@ -14,8 +14,18 @@ You can also do each step individually. Check out the list of tasks:
 ## Usage:
 *Generate a Ruby gem project.*
 ```ruby
-    # Generate a gem
+    # Generate a gem.
     a gem my_gem
+
+    # The tree Unix command can you show your results!
+    tree
+    .
+    ├── my_gem.gemspec
+    ├── bin
+    │   └── my_gem
+    ├── lib
+    │   └── my_gem.rb
+    ├── Rakefile
 ```
 
 **a** has a set of *commands* it can execute. These *commands* all
@@ -42,8 +52,6 @@ a --list
 foo # This description will appear when a --list is used.
 bar # This description will also appear when a --list is used.
 ```
-
-
 
 ## license:
 MIT
