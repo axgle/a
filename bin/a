@@ -1,55 +1,86 @@
 #!/usr/bin/env ruby
- 
- #ex: gem
- def target
 
-  unless $*[0]
-    puts <<-EOT   
-example:
-    a gem mytest
-will create new gem project named mytest directory
+require 'optparse'
+require 'fileutils'
 
-EOT
-    exit 1
- end
-    t = String.new $*[0]
-    t.capitalize!
-    t
- end
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename(__FILE__)} [-V|l] COMMAND DIR"
 
-#ex: mytest
-  def dir
+  opts.on('-V', '--verbose', 'Print more info') { |v| options[:verbose] = v }
 
-    unless $*[1]
-     puts "must have mtarget_dir\nfor example:\n a gem mytest "
-     exit 2
-    end
+  opts.on('-v', '--version', 'Print version info') { |v| options[:version] = v }
 
-    t = String.new $*[1]
+  opts.on('-l', '--list', 'Get a list of COMMAND') { |v| options[:list] = v }
+end.parse!
 
-    # t.capitalize!
-    t 
- end
+EXAMPLE_STR = %[example:
+a gem mytest
+will create new gem project named mytest directory.]
 
+DIR_ERROR_STR = %[Must have a target dir
+for example: a gem mytest]
 
-def main
+TARGET_ERROR_STR = "Here is a list of target you can use:\n"
 
- begin 
- #require 'pathname'
- #require(File.join(File.dirname(__FILE__),'..','lib','commands',target.downcase)) 
- require File.join('commands',target.downcase)
-   rescue LoadError 
-
-   puts "the #{target} not exist"
- exit 4
-
-   end
- 
-target_class = Object.const_get('A::'+target)
- 
-
-target_class.index(dir: dir,target: target)
-
+#ex: gem
+def target
+  unless ARGV.first
+    puts(EXAMPLE_STR)
+    exit(1)
+  end
+  ARGV.first.capitalize
 end
 
-main()
+#ex: mytest
+def dir
+  dir = ARGV.last
+  unless dir
+    puts(DIR_ERROR_STR)
+    exit(2)
+  end
+  dir
+end
+
+def list_targets(targets_path, verbose)
+  # Create the targets_path directory if it doesn't exist!
+  FileUtils.mkdir_p(targets_path, verbose: verbose) unless Dir.exist?(targets_path)
+
+  entries = Dir.entries(targets_path).keep_if { |e| e.include?('.rb') }
+  entries.map! { |e| File.basename(e, '.rb') }
+end
+
+# ex: gem # Generates a Ruby gems project tree.
+def print_targets(targets_path, verbose)
+    list_targets(targets_path, verbose).each { |e| puts(e + " #{File.read("#{targets_path}/#{e}.rb").split("\n").first}") }
+end
+
+def main(options)
+  targets_dir = 'commands'
+  targets_path = File.join("#{Dir.home}/.config/a/#{targets_dir}/")
+
+  if options[:list]
+    print_targets(targets_path, options[:verbose])
+    exit
+  end
+
+  if options[:version]
+    require_relative '../lib/version'
+    $stderr.puts(A::VERSION)
+    exit
+  end
+
+  begin 
+    require_relative targets_path + target.downcase
+  rescue LoadError
+    puts(%[The target "#{target}" does not exist!\n] + TARGET_ERROR_STR)
+    print_targets(targets_dir)
+    exit(4)
+  end
+
+  # Calls what ever command in the target.
+  # Example: A::Gem#new is called when "a gem my_dir" is called.
+  eval "A::#{target.capitalize}.new(dir: dir, target: target, verbose: options[:verbose])"
+end
+
+main(options)

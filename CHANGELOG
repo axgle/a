@@ -1,0 +1,11 @@
+commit 915ea3d83dd61510458ecb1805c6e82180f0ec03
+Author: neet93 <gehirnmav7@protonmail.com>
+Date:   Sat Apr 9 18:01:25 2022 -0400
+
+    bump to version 2.0.2
+
+commit 30846363e513bd0cf999bee44d5959560bfffc7a
+Author: neet93 <gehirnmav7@protonmail.com>
+Date:   Sat Apr 9 17:56:13 2022 -0400
+
+    fixed version path find
